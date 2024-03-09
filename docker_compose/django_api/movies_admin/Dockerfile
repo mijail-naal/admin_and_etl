@@ -34,7 +34,8 @@ RUN  mkdir -p /var/www/static/ \
      && pip install --upgrade pip \
      && pip install -r requirements.txt \
      && chown -R $USERNAME:$USERNAME /opt/app /opt/app/static /var/www/static \
-     /var/www/media /opt/app/media
+     /var/www/media /opt/app/media /opt/app/movies/locale/en/LC_MESSAGES \
+     /opt/app/movies/locale/ru/LC_MESSAGES
 
 COPY . .
 
