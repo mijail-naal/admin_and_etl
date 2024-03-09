@@ -1,11 +1,12 @@
 # DJANGO API
 
-Two steps are needed to launch the project.
+Three steps are needed to launch the project.
 
+- *Change to directory docker_compose/django_api* 
 
-- *Change directory* 
+- *Change the file `.env.sample` to `.env` and set the environment variables* 
 
-- *Run the file docker-compose.yml*
+- *Run the docker-compose.yml*
 
 <br>
 
@@ -15,13 +16,25 @@ The directory `docker_compose` contains the full Django API project.
 
 <br>
 
-**All environment variables are included in the `.env` file**
+**All environment variables samples are included in the `.env.sample` file**
+
+**Don't forget to set the environment variables before running the project!**
 
 <br><br>
 
+> [!NOTE]  
+> **Комментарии для ревьюера**  
+> 
+> Спасибо большое за ревью!  
+> Я согласен с вашим замечанием и понимаю, что никогда не следует отправлять конфиденциальные данные или сохранять их в репозитории, в любом случае я оставил в комментариях важные значения для проекта, в файле .env.sample, для его правильного функционирования. Конечно, я понимаю, что в реальном проекте лучше не давать никаких подсказок.  
+>
+> Спасибо за ваше внимание!
+
+<br>
+
 # Run the project
 
-### Change directory
+### 1. Change directory
 
 ```
 $ cd docker_compose/django_api
@@ -29,13 +42,20 @@ $ cd docker_compose/django_api
 
 <br>
 
-### Run docker-compose.yml 
+### 2. Set the environment variables 
+
+```
+- Change .env.samble file to .env
+- Set the environment variables
+```
+
+<br>
+
+### 3. Run the docker-compose.yml 
 
 ```
 $ sudo docker compose up 
 ```
-
-
 
 
 <br><br>
