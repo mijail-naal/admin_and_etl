@@ -6,7 +6,7 @@ Three steps are needed to launch the project.
 
 - *Change the file `.env.sample` to `.env` and set the environment variables* 
 
-- *Run the docker-compose.yml*
+- *Run docker-compose.yml*
 
 <br>
 
@@ -51,7 +51,7 @@ $ cd docker_compose/django_api
 
 <br>
 
-### 3. Run the docker-compose.yml 
+### 3. Run docker-compose.yml 
 
 ```
 $ sudo docker compose up 
