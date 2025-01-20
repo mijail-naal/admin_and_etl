@@ -1,25 +1,27 @@
 import sys
-import psycopg2
 import logging
 import sched
 import time
 import signal
+
+import psycopg2
 import backoff
 import redis
-import storage
+
+from contextlib import closing
 
 from dotenv import load_dotenv
 from psycopg2.extensions import connection as _connection
 from psycopg2.extras import DictCursor
-from contextlib import closing
-from typing import Dict, List
-from pydantic import ValidationError
 from redis import Redis
 from elasticsearch import Elasticsearch
-from elasticloader import ElasticLoader
-from etlqueries import FILM, PERSON, GENRE, PERSON_FILM, \
+from pydantic import ValidationError
+
+from utils import storage
+from utils.elasticloader import ElasticLoader
+from utils.etlqueries import FILM, PERSON, GENRE, PERSON_FILM, \
                        GENRE_FILM, FILM_PERSON_GENRE
-from config import Film, FilmPersonGenre, postgres_database, \
+from config.settings import Film, FilmPersonGenre, postgres_database, \
                    redis_database, elastic_settings
 
 
@@ -49,7 +51,7 @@ class PostgresExtractor:
         self.genre_film_query = GENRE_FILM
         self.film_person_genre_query = FILM_PERSON_GENRE
 
-    def _extract_data(self, query: str, data: str | tuple) -> List:
+    def _extract_data(self, query: str, data: str | tuple) -> list:
         """Method to interact and retrieve the data from the database."""
         with self.pg_conn as conn:
             cursor = conn.cursor()
@@ -57,7 +59,7 @@ class PostgresExtractor:
             data = cursor.fetchall()
         return data
 
-    def updated_films(self, state: str) -> List:
+    def updated_films(self, state: str) -> list:
         """Check for all the updated films."""
         if not state:
             # Asign a default value if state is None
@@ -65,7 +67,7 @@ class PostgresExtractor:
         data = self._extract_data(self.film_query, state)
         return data
 
-    def updated_persons(self, state: str) -> List | None:
+    def updated_persons(self, state: str) -> list | None:
         """
         Check for all the updated person and,
         if any, extract all the related data.
@@ -90,7 +92,7 @@ class PostgresExtractor:
                 return all_person_info
         return None
 
-    def updated_genres(self, state: str) -> List | None:
+    def updated_genres(self, state: str) -> list | None:
         """
         Check for all the updated genre and,
         if any, extract all the related data.
@@ -117,7 +119,7 @@ class PostgresExtractor:
         return None
 
 
-def backoff_hadler(details: Dict) -> None:
+def backoff_hadler(details: dict) -> None:
     """Backoff event handler logging function"""
     logging.warning(
         "Backing off {wait:0.1f} seconds after {tries} tries "
