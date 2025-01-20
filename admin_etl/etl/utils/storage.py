@@ -1,5 +1,5 @@
 from redis import Redis
-from typing import Any, Dict
+from typing import Any
 
 
 class RedisStorage:
@@ -9,12 +9,12 @@ class RedisStorage:
     def __init__(self, redis_adapter: Redis) -> None:
         self.redis_adapter = redis_adapter
 
-    def save_state(self, state: Dict[str, Any]) -> None:
+    def save_state(self, state: dict[str, Any]) -> None:
         """Save the state to the repository."""
         name, value = [d for d in state.items()][0]
         self.redis_adapter.set(name, value)
 
-    def retrieve_state(self, key: str) -> Dict[str, Any]:
+    def retrieve_state(self, key: str) -> dict[str, Any]:
         """Get the state from the repository."""
         if not self.redis_adapter.get(key):
             return {}

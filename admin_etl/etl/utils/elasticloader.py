@@ -1,6 +1,6 @@
 import json
 import logging
-from typing import Any, Dict
+from typing import Any
 
 
 class ElasticLoader:
@@ -22,7 +22,7 @@ class ElasticLoader:
 
             if not movies_index:
                 # Load the data to create the index.
-                with open('movieIndex.json', 'r') as file:
+                with open('index/movieIndex.json', 'r') as file:
                     data = file.read()
                     idx = json.loads(data)
                     settings = idx['settings']
@@ -54,7 +54,7 @@ class ElasticLoader:
         check = self.client.exists(index=index, id=id)
         return check
 
-    def add_film(self, index: str, data: Dict[str, Any]) -> Dict:
+    def add_film(self, index: str, data: dict[str, Any]) -> dict:
         """Method to create or update a film."""
         id = data['fw_id']
         rating = 0 if not data['rating'] else data['rating']
@@ -131,7 +131,7 @@ class ElasticLoader:
             )
             return {"result": "updated"}
 
-    def add_genre(self, index: str, id: str, genre: str) -> Dict:
+    def add_genre(self, index: str, id: str, genre: str) -> dict:
         """Method to add genre if not exists."""
         self.client.update(
             index=index,
@@ -164,7 +164,7 @@ class ElasticLoader:
             },
         )
 
-    def add_actor(self, index: str, data: Dict[str, Any]) -> None:
+    def add_actor(self, index: str, data: dict[str, Any]) -> None:
         """Asign the role of actor to the document."""
         person_id = data['id']
         name = data['full_name']
@@ -206,7 +206,7 @@ class ElasticLoader:
             ],
         )
 
-    def add_writer(self, index: str, data: Dict[str, Any]) -> None:
+    def add_writer(self, index: str, data: dict[str, Any]) -> None:
         """Asign the role of writer to the document."""
         id=data['fw_id']
         person_id = data['id']
@@ -248,7 +248,7 @@ class ElasticLoader:
             ],
         )
 
-    def load_data(self, index: str, data: Dict[str, Any]) -> Dict:
+    def load_data(self, index: str, data: dict[str, Any]) -> dict:
         """Method to manage the data to load to Elasticsearch."""
 
         id = data['fw_id']
