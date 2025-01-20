@@ -15,7 +15,7 @@ services:
       retries: ${RETRIES_CHECK}
       # start_period: ${START_CHECK}
   django:
-    build: ./movies_admin
+    build: ./django_api/movies_admin
     env_file:
       - .env
     container_name: django_api
@@ -29,9 +29,9 @@ services:
     restart: always
     container_name: nginx_server
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./configs:/etc/nginx/conf.d:ro
-      - ./data:/data/:ro
+      - ./django_api/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./django_api/configs:/etc/nginx/conf.d:ro
+      - ./django_api/data:/data/:ro
       - static-volume:/app/static:ro
     depends_on:
       - django
