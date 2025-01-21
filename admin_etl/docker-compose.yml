@@ -1,5 +1,10 @@
 # version: ${COMPOSE_VERSION}
 services:
+  redis:
+    image: redis:${REDIS_VERSION}
+    ports:
+      - ${REDIS_PORT}
+
   postgres:
     image: postgres:${POSTGRES_VERSION}
     restart: always
@@ -14,6 +19,9 @@ services:
       timeout: ${TIMEOUT_CHECK}
       retries: ${RETRIES_CHECK}
       # start_period: ${START_CHECK}
+    depends_on:
+      - redis
+
   django:
     build: ./django_api/movies_admin
     env_file:
@@ -24,6 +32,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
   nginx:
     image: nginx:${NGINX_VERSION}
     restart: always
@@ -38,6 +47,43 @@ services:
     ports:
       - ${NGINX_PORTS}
 
+  es01:
+    image: elasticsearch:${ELASTICSEARCH_VERSION}
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms200m -Xmx200m"
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    env_file:
+      - .env
+    healthcheck:
+      test: curl -s http://127.0.0.1:9200 >/dev/null || exit 1
+      interval: ${INTERVAL_CHECK}
+      timeout: ${TIMEOUT_CHECK}
+      retries: ${RETRIES_CHECK}
+      start_period: ${START_CHECK}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - ${ELASTICSEARCH_PORTS}
+
+  python:
+    build: ./etl
+    env_file:
+      - .env
+    container_name: python
+    depends_on:
+      es01:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+
 volumes:
   postgres_data:
   static-volume:
+  data01:
