@@ -3,13 +3,11 @@ import logging
 import sched
 import time
 import signal
-
 import psycopg2
 import backoff
 import redis
 
 from contextlib import closing
-
 from dotenv import load_dotenv
 from psycopg2.extensions import connection as _connection
 from psycopg2.extras import DictCursor
