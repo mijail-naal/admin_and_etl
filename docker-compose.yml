@@ -23,7 +23,7 @@ services:
       - redis
 
   django:
-    build: ./django_api/movies_admin
+    build: ./admin_etl/django_api/movies_admin
     env_file:
       - .env
     container_name: django_api
@@ -38,9 +38,9 @@ services:
     restart: always
     container_name: nginx_server
     volumes:
-      - ./django_api/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./django_api/configs:/etc/nginx/conf.d:ro
-      - ./django_api/data:/data/:ro
+      - ./admin_etl/django_api/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./admin_etl/django_api/configs:/etc/nginx/conf.d:ro
+      - ./admin_etl/django_api/data:/data/:ro
       - static-volume:/app/static:ro
     depends_on:
       - django
@@ -73,7 +73,7 @@ services:
       - ${ELASTICSEARCH_PORTS}
 
   python:
-    build: ./etl
+    build: ./admin_etl/etl
     env_file:
       - .env
     container_name: python
