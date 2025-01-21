@@ -20,11 +20,10 @@ ENV PYTHONUNBUFFERED 1
 RUN  pip install --upgrade pip \
      && chown -R $USERNAME:$USERNAME /opt/app
 
-COPY etl/requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN  pip install -r requirements.txt
 
-COPY pg_database/ .
-COPY etl/ .
+COPY . .
 
 # EXPOSE 8000
 USER $USERNAME

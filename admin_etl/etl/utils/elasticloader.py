@@ -22,7 +22,7 @@ class ElasticLoader:
 
             if not movies_index:
                 # Load the data to create the index.
-                with open('index/movieIndex.json', 'r') as file:
+                with open('./index/movieIndex.json', 'r') as file:
                     data = file.read()
                     idx = json.loads(data)
                     settings = idx['settings']
