@@ -12,12 +12,9 @@ The project include the next fetures:
 - ETL process to extract the data from Postgres database and load to Elasticsearch.
 - The ETL implement a fault-tolerant process when the database crash.
 
-
-###### (*) *This is a project for educational purposes and should not be used for real deployment*.
-
 <br>
 
-Two steps are needed to launch the project.
+Two steps are needed to launch the project:
 
 - *Change the file `.env.sample` to `.env` and set the environment variables* 
 
@@ -31,9 +28,11 @@ The directory `admin_etl` contains the full project (Django admin + API and ETL)
 
 <br>
 
-**All environment variables samples are included in the `.env.sample` file**
 
-**Don't forget to set the environment variables before running the project!**
+*All environment variables samples are included in the `.env.sample` file*
+
+*Don't forget to set the environment variables before running the project!*
+
 
 <br>
 
@@ -45,6 +44,10 @@ The directory `admin_etl` contains the full project (Django admin + API and ETL)
 
 <br><br>
 
+###### (*) *Do not use this project for a real deployment*.
+
+<br>
+
 # Run the project
 
 
@@ -55,16 +58,13 @@ The directory `admin_etl` contains the full project (Django admin + API and ETL)
 - Set the environment variables
 ```
 
-<br>
-
 ### 2. Run docker-compose.yml 
 
 ```
 $ sudo docker compose up 
 ```
 
-
-<br><br>
+<br>
 
 ### Project structure
 ----
