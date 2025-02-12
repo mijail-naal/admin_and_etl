@@ -2,15 +2,15 @@
 
 ### Project description
 
-A content management service whit Django-based admin interface that allow to upload movies to server and receive them, and an
+A content management service whit Django-based admin interface that allows to upload movies to server and receive them, and an
 ETL (Extract-Transform-Load) process for uploading data about movies and related people to the Elasticsearch search engine. 
 
-The project include the next fetures:
+The project includes the next features:
 - Ready to launch in a production environment via Docker-Compose. (*) 
 - At the beginning, all the data are transfered from SQLite3 to Postgres database with SQL through Python ("load_data" script) and fill the repository with movies information.
 - A simple API developed with Django to provide a page-by-page list of movies and detailed view about a particular movie.
 - ETL process to extract the data from Postgres database and load to Elasticsearch.
-- The ETL implement a fault-tolerant process when the database crash.
+- The ETL implements a fault-tolerant process when the database crash.
 
 <br>
 
@@ -29,7 +29,7 @@ The directory `admin_etl` contains the full project (Django admin + API and ETL)
 <br>
 
 
-*All environment variables samples are included in the `.env.sample` file*
+*All environment variables samples are included in the `.env.sample` file.*
 
 *Don't forget to set the environment variables before running the project!*
 
@@ -40,7 +40,7 @@ The directory `admin_etl` contains the full project (Django admin + API and ETL)
 
 ![Technologies used](https://skillicons.dev/icons?i=python,django,html,nginx,postgres,redis,elasticsearch,docker)
 
-###### Python, django, HTML, Nginx, Postgres, Redis, Elasticsearch, Docker
+###### Python, Django, HTML, Nginx, Postgres, Redis, Elasticsearch, Docker
 
 <br><br>
 
